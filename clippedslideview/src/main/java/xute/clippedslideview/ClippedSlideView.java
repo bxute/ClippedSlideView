@@ -55,6 +55,7 @@ public class ClippedSlideView extends View {
     private int height;
     private int cx;
     private int cy;
+    private int mCircleColour;
 
     public ClippedSlideView(Context context) {
         super(context);
@@ -76,7 +77,7 @@ public class ClippedSlideView extends View {
         mLargeRadius = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, CIRCLE_RADIUS_LARGE, resources.getDisplayMetrics());
         mMediumRadius = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, CIRCLE_RADIUS_MEDIUM, resources.getDisplayMetrics());
         mSmallRadius = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, CIRCLE_RADIUS_SMALL, resources.getDisplayMetrics());
-        int mCircleColour = Color.parseColor(CIRCLE_COLOUR);
+        mCircleColour = Color.parseColor(CIRCLE_COLOUR);
         bitmaps = new int[0];
         mPath = new Path();
         mCurrentBitampRect = new Rect(0, 0, 0, 0);
@@ -103,6 +104,7 @@ public class ClippedSlideView extends View {
         height = getMeasuredHeight();
         cx = width / 2;
         cy = height / 2;
+        mPaint.setColor(mCircleColour);
         canvas.drawCircle(cx, cy, mLargeRadius, mPaint);
         canvas.drawCircle(cx, cy, mMediumRadius, mPaint);
         canvas.drawCircle(cx, cy, mSmallRadius, mPaint);
@@ -248,6 +250,10 @@ public class ClippedSlideView extends View {
         int minHeight = getPaddingBottom() + getPaddingTop() + mLargeRadius * 2;
         int h = resolveSizeAndState(minHeight, heightMeasureSpec, 0);
         setMeasuredDimension(w, h);
+    }
+
+    public void setColor(int color){
+        mCircleColour = Color.argb(10,Color.red(color),Color.green(color),Color.blue(color));
     }
 
     public SlideListener slideListener;

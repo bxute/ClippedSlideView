@@ -57,6 +57,11 @@ Just call `.setSlideListener` method and pass the implementation `ClippedSlideVi
         });
 ```
 
+You can set the color of Concentric circles by:
+```java
+    clippedSlideView.setColor(Color.parseColor("#009988"));
+```
+
 ### Contributions
 
 Any contributions are welcome. You can send PR or open issues.
