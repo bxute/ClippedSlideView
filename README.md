@@ -3,8 +3,7 @@
 This is a small library for SlideView. It slides a set of views in a clipped circle.
 Effect like this can be used in onboarding pages, user profile stories etc. 
 Take a sample use of this.
-
-<img src="https://user-images.githubusercontent.com/10809719/41021787-4bcac528-6985-11e8-9619-54f1da4ba052.gif" width="360px" height="640px">
+<img src="https://user-images.githubusercontent.com/10809719/41112480-bb230436-6a9c-11e8-8f0d-655bdaf6966e.gif" width="360px" height="640px">
 
 ### How to use this library
 
@@ -24,19 +23,34 @@ Take a sample use of this.
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 ```
-
-And you are good to go!
-
-### How to send slide events
-
-`ClippedSlideView` class is has 2 helper methods to slide your view `left` and `right`
-A sample usage of this is:
+3. Add some image resource
 ```java
- BottomToolbar bottomToolbar = findViewById(R.id.bottom_toolbar);
-        bottomToolbar.setButtonClickListener(new BottomToolbar.ButtonClickListener() {
+ clippedSlideView = findViewById(R.id.clippedSlideView);
+        int[] ids = new int[]{R.drawable.rose,R.drawable.lily,R.drawable.rainbow};
+        clippedSlideView.setImageResource(ids);
+```
+
+Now you need to command this view when you want to slide to next item.
+So you can call helper method like:
+```java
+clippedSlideView.slideRight();
+//clippedSlideView.slideLeft();
+```
+
+### Additional
+You can also listen to events when the slider reaches its end.
+Just call `.setSlideListener` method and pass the implementation `ClippedSlideView.SlideListener` interface.
+
+```java
+ clippedSlideView.setSlideListener(new ClippedSlideView.SlideListener() {
             @Override
-            public void onPlusButtonClicked() {
-                Toast.makeText(MainActivity.this,"Button clicked!",Toast.LENGTH_LONG).show();
+            public void onReachedFirst() {
+                Toast.makeText(MainActivity.this,"Reached 1st Position!",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onReachedLast() {
+                Toast.makeText(MainActivity.this,"Reached last Position!",Toast.LENGTH_LONG).show();
             }
         });
 ```
