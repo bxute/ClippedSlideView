@@ -2,11 +2,45 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:padding="16dp"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context="xute.sample.MainActivity">
 
     <xute.clippedslideview.ClippedSlideView
+        android:layout_marginTop="48dp"
+        android:layout_centerHorizontal="true"
         android:id="@+id/clippedSlideView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/back"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_alignParentBottom="true"
+        android:textSize="18sp"
+        android:text="BACK"
+        android:clickable="true"
+        android:background="?selectableItemBackgroundBorderless"
+        android:textColor="#3f72af"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/next"
+        android:textColor="#3f72af"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:clickable="true"
+        android:background="?selectableItemBackgroundBorderless"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="18sp"
+        android:text="NEXT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

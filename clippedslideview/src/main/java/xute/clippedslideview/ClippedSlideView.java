@@ -21,7 +21,7 @@ public class ClippedSlideView extends View {
     public static final int CIRCLE_RADIUS_LARGE = 124;
     public static final int CIRCLE_RADIUS_MEDIUM = 100;
     public static final int CIRCLE_RADIUS_SMALL = 72;
-    public static final String CIRCLE_COLOUR = "#053f72af";
+    public static final String CIRCLE_COLOUR = "#103f72af";
 
     private int mLargeRadius;
     private int mMediumRadius;
@@ -77,9 +77,8 @@ public class ClippedSlideView extends View {
         mMediumRadius = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, CIRCLE_RADIUS_MEDIUM, resources.getDisplayMetrics());
         mSmallRadius = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, CIRCLE_RADIUS_SMALL, resources.getDisplayMetrics());
         int mCircleColour = Color.parseColor(CIRCLE_COLOUR);
-        bitmaps = new int[]{R.drawable.user, R.drawable.tick, R.drawable.car};
+        bitmaps = new int[0];
         mPath = new Path();
-        mCurrentBitmap = getBitmapFromId(bitmaps[0]);
         mCurrentBitampRect = new Rect(0, 0, 0, 0);
         mNextBitmapRect = new Rect(0, 0, 0, 0);
         mPaint = new Paint();
@@ -87,6 +86,14 @@ public class ClippedSlideView extends View {
         mPaint.setAntiAlias(true);
         mPaint.setColor(mCircleColour);
         mPaint.setStyle(Paint.Style.FILL);
+    }
+
+    public void setImageResource(int[] imageResourceIds){
+        bitmaps = imageResourceIds;
+        if(bitmaps.length>0) {
+            mCurrentBitmap = getBitmapFromId(bitmaps[0]);
+        }
+        invalidate();
     }
 
     @Override
@@ -196,24 +203,36 @@ public class ClippedSlideView extends View {
 
     public void slideLeft() {
         //check for possibility
-        if (mNextBitmapIndex < bitmaps.length - 1 && !sliding) {
-            leftSlide = true;
-            mNextBitmapIndex++;
-            checkAndUpdateNextBitmap();
-            if (mNextBitmap != null) {
-                startValueAnimator();
+        if(!sliding) {
+            if (mNextBitmapIndex < bitmaps.length - 1) {
+                leftSlide = true;
+                mNextBitmapIndex++;
+                checkAndUpdateNextBitmap();
+                if (mNextBitmap != null) {
+                    startValueAnimator();
+                }
+            }else{
+                if(slideListener!=null){
+                    slideListener.onReachedLast();
+                }
             }
         }
     }
 
     public void slideRight() {
         //check for possibility
-        if (mNextBitmapIndex > 0 && !sliding) {
-            leftSlide = false;
-            mNextBitmapIndex--;
-            checkAndUpdateNextBitmap();
-            if (mNextBitmap != null) {
-                startValueAnimator();
+        if(!sliding) {
+            if (mNextBitmapIndex > 0 ) {
+                leftSlide = false;
+                mNextBitmapIndex--;
+                checkAndUpdateNextBitmap();
+                if (mNextBitmap != null) {
+                    startValueAnimator();
+                }
+            }else{
+                if(slideListener!=null){
+                    slideListener.onReachedFirst();
+                }
             }
         }
     }
@@ -229,5 +248,14 @@ public class ClippedSlideView extends View {
         int minHeight = getPaddingBottom() + getPaddingTop() + mLargeRadius * 2;
         int h = resolveSizeAndState(minHeight, heightMeasureSpec, 0);
         setMeasuredDimension(w, h);
+    }
+
+    public SlideListener slideListener;
+    public void setSlideListener(SlideListener slideListener){
+        this.slideListener = slideListener;
+    }
+    public interface SlideListener{
+        void onReachedFirst();
+        void onReachedLast();
     }
 }
