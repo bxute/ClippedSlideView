@@ -3,6 +3,7 @@
 This is a small library for SlideView. It slides a set of views in a clipped circle.
 Effect like this can be used in onboarding pages, user profile stories etc. 
 Take a sample use of this.
+
 <img src="https://user-images.githubusercontent.com/10809719/41112480-bb230436-6a9c-11e8-8f0d-655bdaf6966e.gif" width="360px" height="640px">
 
 ### How to use this library
@@ -10,9 +11,10 @@ Take a sample use of this.
 
 1.Add Module dependency in `app/build.gradle` file
 ```
-		dependencies {
-    	        implementation 'com.github.bxute:ClippedSlideView:v1.0'
-    	}
+dependencies
+{
+    implementation 'com.github.bxute:ClippedSlideView:v1.0'
+}
 
 ```
 
@@ -26,8 +28,8 @@ Take a sample use of this.
 3. Add some image resource
 ```java
  clippedSlideView = findViewById(R.id.clippedSlideView);
-        int[] ids = new int[]{R.drawable.rose,R.drawable.lily,R.drawable.rainbow};
-        clippedSlideView.setImageResource(ids);
+ int[] ids = new int[]{R.drawable.rose,R.drawable.lily,R.drawable.rainbow};
+ clippedSlideView.setImageResource(ids);
 ```
 
 Now you need to command this view when you want to slide to next item.
