@@ -8,8 +8,17 @@ Take a sample use of this.
 
 ### How to use this library
 
+1. Add the JitPack repository to your build file(project level)
+ ```
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
 
-1.Add Module dependency in `app/build.gradle` file
+2.Add Module dependency in `app/build.gradle` file
 ```
 dependencies
 {
@@ -18,14 +27,14 @@ dependencies
 
 ```
 
-2.Add this XML to your activity
+3.Add this XML to your activity
 ```xml
 <xute.clippedslideview.ClippedSlideView
         android:id="@+id/clippedSlideView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 ```
-3. Add some image resource
+4. Add some image resource
 ```java
  clippedSlideView = findViewById(R.id.clippedSlideView);
  int[] ids = new int[]{R.drawable.rose,R.drawable.lily,R.drawable.rainbow};
