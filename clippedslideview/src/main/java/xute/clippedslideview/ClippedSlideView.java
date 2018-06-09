@@ -89,9 +89,9 @@ public class ClippedSlideView extends View {
         mPaint.setStyle(Paint.Style.FILL);
     }
 
-    public void setImageResource(int[] imageResourceIds){
+    public void setImageResource(int[] imageResourceIds) {
         bitmaps = imageResourceIds;
-        if(bitmaps.length>0) {
+        if (bitmaps.length > 0) {
             mCurrentBitmap = getBitmapFromId(bitmaps[0]);
         }
         invalidate();
@@ -125,7 +125,8 @@ public class ClippedSlideView extends View {
                 //current bitmap will disappear
                 mBitmapAlphaPaint.setAlpha(255 - currentBitmapAlpha);
                 mCurrentBitampRect.set(mCurrentBitmapStartX - mBitmapSlideOffset, mBitmapStartY, mCurrentBitmapEndX - mBitmapSlideOffset, mBitmapEndY);
-                canvas.drawBitmap(mCurrentBitmap, null, mCurrentBitampRect, mBitmapAlphaPaint);
+                if (mCurrentBitmap != null)
+                    canvas.drawBitmap(mCurrentBitmap, null, mCurrentBitampRect, mBitmapAlphaPaint);
                 if (mNextBitmap != null) {
                     //next bitmap will appear
                     mBitmapAlphaPaint.setAlpha(currentBitmapAlpha);
@@ -136,7 +137,8 @@ public class ClippedSlideView extends View {
                 //current bitmap will disappear
                 mBitmapAlphaPaint.setAlpha(255 - currentBitmapAlpha);
                 mCurrentBitampRect.set(mCurrentBitmapStartX + mBitmapSlideOffset, mBitmapStartY, mCurrentBitmapEndX + mBitmapSlideOffset, mBitmapEndY);
-                canvas.drawBitmap(mCurrentBitmap, null, mCurrentBitampRect, mBitmapAlphaPaint);
+                if (mCurrentBitmap != null)
+                    canvas.drawBitmap(mCurrentBitmap, null, mCurrentBitampRect, mBitmapAlphaPaint);
                 if (mNextBitmap != null) {
                     //next bitmap will appear
                     mBitmapAlphaPaint.setAlpha(currentBitmapAlpha);
@@ -148,7 +150,8 @@ public class ClippedSlideView extends View {
             mBitmapAlphaPaint.setAlpha(255);
             //current bitmap
             mCurrentBitampRect.set(mCurrentBitmapStartX, mBitmapStartY, mCurrentBitmapEndX, mBitmapEndY);
-            canvas.drawBitmap(mCurrentBitmap, null, mCurrentBitampRect, mBitmapAlphaPaint);
+            if (mCurrentBitmap != null)
+                canvas.drawBitmap(mCurrentBitmap, null, mCurrentBitampRect, mBitmapAlphaPaint);
         }
     }
 
@@ -205,7 +208,7 @@ public class ClippedSlideView extends View {
 
     public void slideLeft() {
         //check for possibility
-        if(!sliding) {
+        if (!sliding) {
             if (mNextBitmapIndex < bitmaps.length - 1) {
                 leftSlide = true;
                 mNextBitmapIndex++;
@@ -213,8 +216,8 @@ public class ClippedSlideView extends View {
                 if (mNextBitmap != null) {
                     startValueAnimator();
                 }
-            }else{
-                if(slideListener!=null){
+            } else {
+                if (slideListener != null) {
                     slideListener.onReachedLast();
                 }
             }
@@ -223,16 +226,16 @@ public class ClippedSlideView extends View {
 
     public void slideRight() {
         //check for possibility
-        if(!sliding) {
-            if (mNextBitmapIndex > 0 ) {
+        if (!sliding) {
+            if (mNextBitmapIndex > 0) {
                 leftSlide = false;
                 mNextBitmapIndex--;
                 checkAndUpdateNextBitmap();
                 if (mNextBitmap != null) {
                     startValueAnimator();
                 }
-            }else{
-                if(slideListener!=null){
+            } else {
+                if (slideListener != null) {
                     slideListener.onReachedFirst();
                 }
             }
@@ -252,16 +255,19 @@ public class ClippedSlideView extends View {
         setMeasuredDimension(w, h);
     }
 
-    public void setColor(int color){
-        mCircleColour = Color.argb(10,Color.red(color),Color.green(color),Color.blue(color));
+    public void setColor(int color) {
+        mCircleColour = Color.argb(10, Color.red(color), Color.green(color), Color.blue(color));
     }
 
     public SlideListener slideListener;
-    public void setSlideListener(SlideListener slideListener){
+
+    public void setSlideListener(SlideListener slideListener) {
         this.slideListener = slideListener;
     }
-    public interface SlideListener{
+
+    public interface SlideListener {
         void onReachedFirst();
+
         void onReachedLast();
     }
 }
