@@ -109,7 +109,7 @@ public class ClippedSlideView extends View {
         canvas.drawCircle(cx, cy, mMediumRadius, mPaint);
         canvas.drawCircle(cx, cy, mSmallRadius, mPaint);
         //clip bitmap drawing to smaller circle
-        mPath.addCircle(cx, cy, mSmallRadius, Path.Direction.CCW);
+        mPath.addCircle(cx, cy, mMediumRadius, Path.Direction.CCW);
         canvas.clipPath(mPath);
         int padding = mLargeRadius - mSmallRadius;
         mCurrentBitmapStartX = padding;
