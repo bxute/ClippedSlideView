@@ -22,7 +22,7 @@ allprojects {
 ```
 dependencies
 {
-    implementation 'com.github.bxute:ClippedSlideView:v1.0'
+    implementation 'com.github.bxute:ClippedSlideView:v1.0.1'
 }
 
 ```
